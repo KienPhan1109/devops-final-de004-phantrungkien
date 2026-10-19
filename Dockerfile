@@ -31,9 +31,9 @@ WORKDIR /app
 RUN addgroup -S spring && adduser -S spring -G spring
 # Chỉ lấy file JAR từ stage build
 COPY . .
-USER spring:spring
+USER spring
 
 EXPOSE 8081
 
 # ENTRYPOINT dạng exec (mảng JSON)
-ENTRYPOINT ["java", "jar", "~/*.jar"]
+ENTRYPOINT ["java", "-jar", "~/*.jar"]
