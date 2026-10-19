@@ -6,7 +6,7 @@
 
 # ---------- Stage 1: build - biên dịch & đóng gói bằng Gradle + JDK 21 ----------
 # Spring Boot 4 yêu cầu Gradle >= 8.14
-FROM gradle:jdk21 AS build
+FROM gradle:8.14-jdk21-alpine AS build
 WORKDIR /workspace
 
 # Copy build.gradle + settings.gradle trước, tải dependency để tận dụng cache layer
@@ -30,8 +30,8 @@ WORKDIR /app
 # Chạy ứng dụng bằng user thường, không dùng root
 RUN addgroup -S spring && adduser -S spring -G spring
 # Chỉ lấy file JAR từ stage build
-COPY --from=build /app/app.jar
-USER spring:spring
+COPY . .
+USER spring
 
 EXPOSE 8081
 
